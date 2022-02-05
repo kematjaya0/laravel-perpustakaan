@@ -18,7 +18,7 @@
             <span>Dashboard</span></a>
     </li>
     <hr class="sidebar-divider">
-
+    @can('super')
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAdmin"
             aria-expanded="true" aria-controls="collapseAdmin">
@@ -31,6 +31,7 @@
             </div>
         </div>
     </li>
+    @endcan
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBuku"
             aria-expanded="true" aria-controls="collapseBuku">
@@ -39,7 +40,9 @@
         </a>
         <div id="collapseBuku" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
+                @can('super')
                 <a class="collapse-item" href="{{ route('penulis_index') }}">Penulis</a>
+                @endcan
                 <a class="collapse-item" href="{{ route('buku_index') }}">Buku</a>
             </div>
         </div>

@@ -21,6 +21,8 @@ class UserController extends AbstractController
 {
     public function index()
     {
+        $this->authorize('super');
+        
         return view('user.index', [
             'data' => DB::table('users')->paginate(10)
         ]);
@@ -28,6 +30,8 @@ class UserController extends AbstractController
     
     public function create(Request $request)
     {
+        $this->authorize('super');
+        
         if (Request::METHOD_POST === $request->getMethod()) {
             $validator = [
                 'name' => 'required',
@@ -56,6 +60,7 @@ class UserController extends AbstractController
     
     public function edit(Request $request, $id)
     {
+        $this->authorize('super');
         $object = User::findOrFail($id);
         if (Request::METHOD_POST === $request->getMethod()) {
             $validator = [
@@ -85,6 +90,7 @@ class UserController extends AbstractController
     
     public function remove($id)
     {
+        $this->authorize('super');
         $object = User::findOrFail($id);
         $object->delete();
 

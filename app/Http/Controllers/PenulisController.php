@@ -20,6 +20,8 @@ class PenulisController extends AbstractController
 {
     public function index()
     {
+        $this->authorize('super');
+        
         return view('penulis.index', [
             'data' => DB::table('penulis')->paginate(10)
         ]);
@@ -27,6 +29,8 @@ class PenulisController extends AbstractController
     
     public function create(Request $request)
     {
+        $this->authorize('super');
+        
         if (Request::METHOD_POST === $request->getMethod()) {
             $validator = [
                 'nama' => 'required'
@@ -48,6 +52,8 @@ class PenulisController extends AbstractController
     
     public function edit(Request $request, $id)
     {
+        $this->authorize('super');
+        
         $penulis = Penulis::findOrFail($id);
         if (Request::METHOD_POST === $request->getMethod()) {
             $validator = [
@@ -72,6 +78,8 @@ class PenulisController extends AbstractController
     
     public function remove($id)
     {
+        $this->authorize('super');
+        
         $post = Penulis::findOrFail($id);
         $post->delete();
 

@@ -28,6 +28,7 @@ class BukuController extends AbstractController
     
     public function create(Request $request)
     {
+        $this->authorize('super');
         if (Request::METHOD_POST === $request->getMethod()) {
             $validator = [
                 'isbn' => 'required',
@@ -58,8 +59,15 @@ class BukuController extends AbstractController
         ]);
     }
     
+    public function show($id)
+    {
+        $object = Buku::findOrFail($id);
+        dump($object);exit;
+    }
+    
     public function edit(Request $request, $id)
     {
+        $this->authorize('super');
         $object = Buku::findOrFail($id);
         if (Request::METHOD_POST === $request->getMethod()) {
             $validator = [
@@ -95,6 +103,7 @@ class BukuController extends AbstractController
     
     public function remove($id)
     {
+        $this->authorize('super');
         $object = Buku::findOrFail($id);
         $object->delete();
 

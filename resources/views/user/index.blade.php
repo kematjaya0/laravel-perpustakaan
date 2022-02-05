@@ -1,9 +1,11 @@
 @extends('layout.tabulation')
 
 @section('actions')
+    
     <a href="{{ route('user_create') }}" data-toggle="modal" data-target="#modal" class="d-none d-sm-inline-block btn btn-sm btn-outline-primary shadow-sm">
         <i class="fas fa-plus fa-sm"></i> Create
-    </a>              
+    </a>  
+    
 @endsection
 
 @section('title')

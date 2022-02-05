@@ -45,6 +45,7 @@ Route::middleware(['auth'])->prefix('admin')->group(function() {
     });
     Route::controller(App\Http\Controllers\BukuController::class)->prefix('buku')->group(function () {
         Route::get('/', 'index')->name('buku_index');
+        Route::get('/{id}/show', 'show')->name('buku_show');
         Route::match(['get', 'post'], '/create', 'create')->name('buku_create');
         Route::match(['get', 'post'], '/{id}/edit', 'edit')->name('buku_edit');
         Route::delete('/{id}/remove', 'remove')->name('buku_remove');
