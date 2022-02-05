@@ -22,6 +22,14 @@ Route::get('/login', [App\Http\Controllers\LoginController::class, 'login'])
 
 Route::get('/dashboard', [\App\Http\Controllers\DashboardController::class, 'index'])
         ->name('dashboard');
+
+Route::controller(App\Http\Controllers\UserController::class)->prefix('user')->group(function () {
+    Route::get('/', 'index')->name('user_index');
+    Route::match(['get', 'post'], '/create', 'create')->name('user_create');
+    Route::match(['get', 'post'], '/{id}/edit', 'edit')->name('user_edit');
+    Route::delete('/{id}/remove', 'remove')->name('user_remove');
+});
+
 Route::controller(App\Http\Controllers\PenulisController::class)->prefix('penulis')->group(function () {
     Route::get('/', 'index')->name('penulis_index');
     Route::match(['get', 'post'], '/create', 'create')->name('penulis_create');

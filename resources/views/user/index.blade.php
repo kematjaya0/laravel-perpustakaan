@@ -1,13 +1,13 @@
 @extends('layout.tabulation')
 
 @section('actions')
-    <a href="{{ route('penulis_create') }}" data-toggle="modal" data-target="#modal" class="d-none d-sm-inline-block btn btn-sm btn-outline-primary shadow-sm">
+    <a href="{{ route('user_create') }}" data-toggle="modal" data-target="#modal" class="d-none d-sm-inline-block btn btn-sm btn-outline-primary shadow-sm">
         <i class="fas fa-plus fa-sm"></i> Create
     </a>              
 @endsection
 
 @section('title')
-    Penulis
+    user
 @endsection
 
 @section('tabulation.footer')
@@ -18,16 +18,20 @@
 <table class='table table-bordered table-hover'>
     <thead>
         <tr>
-            <th>Nama</th>
+            <th>NAMA</th>
+            <th>EMAIL</th>
+            <th>ROLE</th>
             <th>Aksi</th>
         </tr>
     </thead>
     <tbody>
-        @foreach ($data as $penulis)
+        @foreach ($data as $user)
         <tr>
-            <td>{{ $penulis->nama }}</td>
+            <td>{{ $user->name }}</td>
+            <td>{{ $user->email }}</td> 
+            <td>{{ $user->role }}</td>
             <td>
-                @include('penulis.delete', ['penulis' => $penulis])
+                @include('user.delete', ['user' => $user])
             </td>
         </tr>
         @endforeach

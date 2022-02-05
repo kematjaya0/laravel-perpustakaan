@@ -1,8 +1,8 @@
 @extends('layout.tabulation')
 
 @section('actions')
-    <a href="{{ route('buku_create') }}" data-toggle="modal" data-target="#modal" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-        <i class="fas fa-download fa-sm text-white-50"></i> Create
+    <a href="{{ route('buku_create') }}" data-toggle="modal" data-target="#modal" class="d-none d-sm-inline-block btn btn-sm btn-outline-primary shadow-sm">
+        <i class="fas fa-plus fa-sm"></i> Create
     </a>              
 @endsection
 

@@ -22,5 +22,10 @@ class DatabaseSeeder extends Seeder
             $penulis->bukus()->saveMany($bukus);
         });
         User::factory(5)->create();
+        User::factory(1)->make()->each(function (User $user) {
+            $user->email = 'root@gmail.com';
+            $user->role = User::ROLE_ROOT;
+            $user->save();
+        });
     }
 }

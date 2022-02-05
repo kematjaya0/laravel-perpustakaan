@@ -19,10 +19,6 @@
     </li>
     <hr class="sidebar-divider">
 
-    <!-- Heading -->
-    <div class="sidebar-heading">
-        Administrator
-    </div>
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAdmin"
             aria-expanded="true" aria-controls="collapseAdmin">
@@ -31,14 +27,10 @@
         </a>
         <div id="collapseAdmin" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="buttons.html">Pengguna</a>
+                <a class="collapse-item" href="{{ route('user_index') }}">Pengguna</a>
             </div>
         </div>
     </li>
-    <!-- Heading -->
-    <div class="sidebar-heading">
-        Buku
-    </div>
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBuku"
             aria-expanded="true" aria-controls="collapseBuku">
