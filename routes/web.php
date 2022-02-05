@@ -14,11 +14,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('app_login');
 });
 
-Route::get('/login', [App\Http\Controllers\LoginController::class, 'login'])
+Route::match(['get', 'post'], '/login', [App\Http\Controllers\AuthController::class, 'login'])
         ->name('app_login');
+Route::get('/logout', [App\Http\Controllers\AuthController::class, 'logout'])
+        ->name('app_logout');
 
 Route::get('/dashboard', [\App\Http\Controllers\DashboardController::class, 'index'])
         ->name('dashboard');
