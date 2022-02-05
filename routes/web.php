@@ -30,4 +30,7 @@ Route::controller(App\Http\Controllers\PenulisController::class)->prefix('penuli
 });
 Route::controller(App\Http\Controllers\BukuController::class)->prefix('buku')->group(function () {
     Route::get('/', 'index')->name('buku_index');
+    Route::match(['get', 'post'], '/create', 'create')->name('buku_create');
+    Route::match(['get', 'post'], '/{id}/edit', 'edit')->name('buku_edit');
+    Route::delete('/{id}/remove', 'remove')->name('buku_remove');
 });

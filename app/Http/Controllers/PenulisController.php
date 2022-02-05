@@ -28,7 +28,10 @@ class PenulisController extends AbstractController
     public function create(Request $request)
     {
         if (Request::METHOD_POST === $request->getMethod()) {
-            $response = $this->handleRequest($request, function (Request $request) {
+            $validator = [
+                'nama' => 'required'
+            ];
+            $response = $this->handleRequest($request, $validator, function (Request $request) {
                 return Penulis::create([
                     'nama' => $request->nama
                 ]);
@@ -47,7 +50,10 @@ class PenulisController extends AbstractController
     {
         $penulis = Penulis::findOrFail($id);
         if (Request::METHOD_POST === $request->getMethod()) {
-            $response = $this->handleRequest($request, function (Request $request) use ($penulis) {
+            $validator = [
+                'nama' => 'required'
+            ];
+            $response = $this->handleRequest($request, $validator, function (Request $request) use ($penulis) {
                 $penulis->update([
                     'nama' => $request->nama
                 ]);
@@ -82,24 +88,5 @@ class PenulisController extends AbstractController
             ->with([
                 'error' => 'Some problem has occurred, please try again'
             ]);
-    }
-    
-    protected function handleRequest(Request $request, \Closure $callback = null):array
-    {
-        try {
-            $this->validate($request, [
-                'nama' => 'required'
-            ]);
-            
-            $object = null !== $callback ? call_user_func($callback, $request) : null;
-
-            return $this->buildSuccessResult($object);
-        } catch (\Exception $ex) {
-            return $this->buildErrorResult(
-                $ex->getMessage()
-            );
-        }
-        
-        return [];
     }
 }

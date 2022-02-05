@@ -1,3 +1,5 @@
+@section('modal.stylesheet')
+@show
 
 @section('modal.form_start')
 @show
@@ -116,4 +118,4 @@
     });
 </script>
 @section('modal.javascript')
-@endsection
+@show

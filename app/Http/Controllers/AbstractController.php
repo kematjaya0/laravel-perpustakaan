@@ -6,6 +6,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 
 class AbstractController extends BaseController
@@ -39,5 +40,24 @@ class AbstractController extends BaseController
     {
         
         return new JsonResponse($data, $status, $headers);
+    }
+    
+    protected function handleRequest(Request $request, array $validator = [], \Closure $callback = null):array
+    {
+        try {
+            if (!empty($validator)) {
+                $this->validate($request, $validator);
+            }   
+            
+            $object = null !== $callback ? call_user_func($callback, $request) : null;
+
+            return $this->buildSuccessResult($object);
+        } catch (\Exception $ex) {
+            return $this->buildErrorResult(
+                $ex->getMessage()
+            );
+        }
+        
+        return [];
     }
 }

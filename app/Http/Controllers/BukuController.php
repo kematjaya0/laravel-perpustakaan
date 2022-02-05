@@ -7,6 +7,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+use App\Models\Buku;
+use App\Models\Penulis;
+use App\Http\Controllers\AbstractController;
+
 /**
  * Description of BukuController
  *
@@ -16,6 +21,95 @@ class BukuController extends AbstractController
 {
     public function index()
     {
-        dump('buku');exit;
+        return view('buku.index', [
+            'data' => Buku::with(['penulis'])->paginate(10)
+        ]);
+    }
+    
+    public function create(Request $request)
+    {
+        if (Request::METHOD_POST === $request->getMethod()) {
+            $validator = [
+                'isbn' => 'required',
+                'judul' => 'required',
+                'deskripsi' => 'required',
+                'tahun' => 'required',
+                'penulis_id' => 'required',
+                'stok' => 'required'
+            ];
+            $response = $this->handleRequest($request, $validator, function (Request $request) {
+                return Buku::create([
+                    'isbn' => $request->isbn,
+                    'judul' => $request->judul,
+                    'deskripsi' => $request->deskripsi,
+                    'tahun' => $request->tahun,
+                    'penulis_id' => $request->penulis_id,
+                    'stok' => $request->stok
+                ]);
+            });
+            
+            return $this->json($response);
+        }
+        
+        return view('buku.form', [
+            'action' => route('buku_create'),
+            'object' => new Buku(),
+            'penulis' => Penulis::all()
+        ]);
+    }
+    
+    public function edit(Request $request, $id)
+    {
+        $object = Buku::findOrFail($id);
+        if (Request::METHOD_POST === $request->getMethod()) {
+            $validator = [
+                'isbn' => 'required',
+                'judul' => 'required',
+                'deskripsi' => 'required',
+                'tahun' => 'required',
+                'penulis_id' => 'required',
+                'stok' => 'required'
+            ];
+            $response = $this->handleRequest($request, $validator, function (Request $request) use ($object) {
+                $object->update([
+                    'isbn' => $request->isbn,
+                    'judul' => $request->judul,
+                    'deskripsi' => $request->deskripsi,
+                    'tahun' => $request->tahun,
+                    'penulis_id' => $request->penulis_id,
+                    'stok' => $request->stok
+                ]);
+                
+                return $object;
+            });
+            
+            return $this->json($response);
+        }
+        
+        return view('buku.form', [
+            'action' => route('buku_edit', ['id' => $id]),
+            'object' => $object,
+            'penulis' => Penulis::all()
+        ]);
+    }
+    
+    public function remove($id)
+    {
+        $object = Buku::findOrFail($id);
+        $object->delete();
+
+        if ($object) {
+            return redirect()
+                ->route('buku_index')
+                ->with([
+                    'success' => 'data has been deleted successfully'
+                ]);
+        }
+        
+        return redirect()
+            ->route('buku_index')
+            ->with([
+                'error' => 'Some problem has occurred, please try again'
+            ]);
     }
 }

@@ -11,8 +11,17 @@ class Buku extends Model
     
     protected $table = 'buku';
     
+    protected $fillable = [
+        'isbn',
+        'judul',
+        'deskripsi',
+        'tahun',
+        'penulis_id',
+        'stok'
+    ];
+    
     public function penulis()
     {
-        return $this->hasOne(Penulis::class);
+        return $this->belongsTo(Penulis::class);
     }
 }
