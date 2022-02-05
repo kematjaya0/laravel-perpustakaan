@@ -9,6 +9,10 @@ class Penulis extends Model
 {
     use HasFactory;
     
+    protected $fillable = [
+        'nama'
+    ];
+    
     public function bukus()
     {
         return $this->hasMany(Buku::class);
