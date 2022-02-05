@@ -7,7 +7,7 @@
 @endsection
 
 @section('title')
-    user
+    User
 @endsection
 
 @section('tabulation.footer')

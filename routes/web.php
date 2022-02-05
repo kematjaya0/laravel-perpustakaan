@@ -18,12 +18,16 @@ Route::get('/', function () {
 });
 
 Route::match(['get', 'post'], '/login', [App\Http\Controllers\AuthController::class, 'login'])
-        ->name('app_login');
+        ->name('app_login')
+        ->middleware(['guest']);
+
 Route::get('/logout', [App\Http\Controllers\AuthController::class, 'logout'])
-        ->name('app_logout');
+        ->name('app_logout')
+        ->middleware('auth');
 
 Route::get('/dashboard', [\App\Http\Controllers\DashboardController::class, 'index'])
-        ->name('dashboard');
+        ->name('dashboard')
+        ->middleware('auth');
 
 Route::controller(App\Http\Controllers\UserController::class)->prefix('user')->group(function () {
     Route::get('/', 'index')->name('user_index');

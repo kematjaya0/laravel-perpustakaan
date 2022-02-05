@@ -47,6 +47,6 @@ class AuthController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect()->intended('app_login');
+        return redirect()->route('app_login');
     }
 }
