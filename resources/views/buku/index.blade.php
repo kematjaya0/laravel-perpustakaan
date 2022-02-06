@@ -32,7 +32,7 @@
         @foreach ($data as $buku)
         <tr>
             <td>{{ $buku->isbn }}</td>
-            <td>{{ $buku->judul }}</td> 
+            <td>{!! $buku->judul !!}</td> 
             <td>{{ $buku->tahun }}</td>
             <td>{{ $buku->stok }}</td>
             <td>{{ $buku->penulis->nama }}</td>

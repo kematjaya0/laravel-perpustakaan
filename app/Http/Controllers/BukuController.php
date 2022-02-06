@@ -36,16 +36,20 @@ class BukuController extends AbstractController
                 'deskripsi' => 'required',
                 'tahun' => 'required',
                 'penulis_id' => 'required',
-                'stok' => 'required'
+                'stok' => 'required',
+                'image' => 'file|image|max:1024'
             ];
             $response = $this->handleRequest($request, $validator, function (Request $request) {
+                $image = (null !== $request->file('image')) ? $request->file('image')->store("book") : null;
+                
                 return Buku::create([
                     'isbn' => $request->isbn,
                     'judul' => $request->judul,
                     'deskripsi' => $request->deskripsi,
                     'tahun' => $request->tahun,
                     'penulis_id' => $request->penulis_id,
-                    'stok' => $request->stok
+                    'stok' => $request->stok,
+                    'image' => $image
                 ]);
             });
             
@@ -61,13 +65,14 @@ class BukuController extends AbstractController
     
     public function show($id)
     {
-        $object = Buku::findOrFail($id);
-        dump($object);exit;
+        return view('buku.show', [
+            'buku' => Buku::findOrFail($id)
+        ]);
     }
     
     public function edit(Request $request, $id)
     {
-        $this->authorize('super');
+        $this->authorize('super');        
         $object = Buku::findOrFail($id);
         if (Request::METHOD_POST === $request->getMethod()) {
             $validator = [
@@ -76,16 +81,20 @@ class BukuController extends AbstractController
                 'deskripsi' => 'required',
                 'tahun' => 'required',
                 'penulis_id' => 'required',
-                'stok' => 'required'
+                'stok' => 'required',
+                'image' => 'file|image|max:1024'
             ];
             $response = $this->handleRequest($request, $validator, function (Request $request) use ($object) {
+                $image = (null !== $request->file('image')) ? $request->file('image')->store("book") : null;
+                
                 $object->update([
                     'isbn' => $request->isbn,
                     'judul' => $request->judul,
                     'deskripsi' => $request->deskripsi,
                     'tahun' => $request->tahun,
                     'penulis_id' => $request->penulis_id,
-                    'stok' => $request->stok
+                    'stok' => $request->stok,
+                    'image' => $image
                 ]);
                 
                 return $object;

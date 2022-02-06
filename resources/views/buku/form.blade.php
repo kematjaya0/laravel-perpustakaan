@@ -9,7 +9,7 @@
 @endsection
 
 @section('modal.form_start')
-<form action="{{ $action }}" method="post" id="ajaxForm">
+<form action="{{ $action }}" method="post" id="ajaxForm" enctype="multipart/form-data">
     <input type="hidden" name="id" value="{{ $object->id }}"/>
     @csrf
 @endsection
@@ -33,10 +33,6 @@
     <trix-editor input="judul"></trix-editor>
 </div>
 <div class="mb-3">
-    <input id="deskripsi" type="hidden" name="deskripsi" value="{{ $object->deskripsi }}">
-    <trix-editor input="deskripsi"></trix-editor>
-</div>
-<div class="mb-3">
     <label for="tahun" class="form-label">TAHUN</label>
     <input type="number" min="1970" name="tahun" class="form-control" value="{{ $object->tahun }}" id="tahun" aria-describedby="tahun">
 </div>
@@ -53,7 +49,14 @@
         @endforeach
     </select>
 </div>
-
+<div class="mb-3">
+  <label for="image" class="form-label">Foto</label>
+  <input class="form-control" type="file" name="image" id="image"/>
+</div>
+<div class="mb-3">
+    <input id="deskripsi" type="hidden" name="deskripsi" value="{{ $object->deskripsi }}">
+    <trix-editor input="deskripsi"></trix-editor>
+</div>
 @endsection
 
 @section('modal.form_end')

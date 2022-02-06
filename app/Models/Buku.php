@@ -17,7 +17,8 @@ class Buku extends Model
         'deskripsi',
         'tahun',
         'penulis_id',
-        'stok'
+        'stok',
+        'image'
     ];
     
     public function penulis()

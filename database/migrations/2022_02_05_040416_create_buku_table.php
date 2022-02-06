@@ -19,7 +19,8 @@ class CreateBukuTable extends Migration
             $table->text('judul');
             $table->text('deskripsi');
             $table->integer('tahun');
-            $table->integer('stok');
+            $table->integer('stok')->nullable();
+            $table->string('image')->nullable();
             $table->integer('penulis_id');
             $table->foreign('penulis_id')->references('id')->on('penulis')
                    ->onDelete('cascade');
