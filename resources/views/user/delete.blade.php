@@ -8,3 +8,9 @@
         <span class="fa fa-trash"></span> Hapus
     </button>
 </form>
+<form onsubmit="return confirm('Password akan di reset, anda yakin ?');" action="{{ route('user_reset_password', $user->id) }}" method="POST">
+    @csrf
+    <button type="submit" class="btn btn-sm btn-outline-danger shadow-sm">
+        <span class="fa fa-trash"></span> Reset Password
+    </button>
+</form>

@@ -34,6 +34,7 @@ Route::middleware(['auth'])->prefix('admin')->group(function() {
         Route::get('/', 'index')->name('user_index');
         Route::match(['get', 'post'], '/create', 'create')->name('user_create');
         Route::match(['get', 'post'], '/{id}/edit', 'edit')->name('user_edit');
+        Route::post('/{id}/reset', 'resetPassword')->name('user_reset_password');
         Route::delete('/{id}/remove', 'remove')->name('user_remove');
     });
 

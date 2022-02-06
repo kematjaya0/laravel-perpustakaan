@@ -10,6 +10,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use App\Http\Controllers\AbstractController;
 
 /**
@@ -24,7 +25,7 @@ class UserController extends AbstractController
         $this->authorize('super');
         
         return view('user.index', [
-            'data' => DB::table('users')->paginate(10)
+            'data' => DB::table('users')->latest()->paginate(10)
         ]);
     }
     
@@ -56,6 +57,22 @@ class UserController extends AbstractController
             'object' => new User(),
             'roles' => User::getRoles()
         ]);
+    }
+    
+    public function resetPassword($id)
+    {
+        $this->authorize('super');
+        $object = User::findOrFail($id);
+        
+        $plain = Str::random(8);
+        $object->password = bcrypt($plain);
+        $object->save();
+        
+        return redirect()
+                ->route('user_index')
+                ->with([
+                    'success' => sprintf('password berhasil di reset, password baru anda "%s": "%s"', $object->name, $plain)
+                ]);
     }
     
     public function edit(Request $request, $id)
